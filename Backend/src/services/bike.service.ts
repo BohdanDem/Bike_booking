@@ -4,23 +4,24 @@ import { ApiError } from "../errors/api.error";
 import { Bike } from "../models/Bike.model";
 import { bikeRepository } from "../repositories/bike.repositiry";
 import { IBike } from "../types/bike.type";
+import { IPaginationResponse, IQuery } from "../types/pagination.type";
 
 class BikeService {
-  // public async getAll() {
-  //   try {
-  //     const [cars, itemsCount] = await carRepository.getAll();
-  //
-  //     return {
-  //       page: +query.page,
-  //       limit: +query.limit,
-  //       itemsCount,
-  //       itemsFound: cars.length,
-  //       data: cars,
-  //     };
-  //   } catch (e) {
-  //     throw new ApiError(e.message, e.status);
-  //   }
-  // }
+  public async getAll(query: IQuery): Promise<IPaginationResponse<IBike>> {
+    try {
+      const [bikes, itemsCount] = await bikeRepository.getAll(query);
+
+      return {
+        page: +query.page,
+        limit: +query.limit,
+        itemsCount,
+        itemsFound: bikes.length,
+        data: bikes,
+      };
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
 
   public async post(dto: IBike): Promise<IBike> {
     try {
@@ -35,14 +36,14 @@ class BikeService {
     }
   }
 
-  // public async delete(id: string): Promise<number> {
-  //   const deletedCount = await carRepository.delete(id);
-  //
-  //   if (!deletedCount) {
-  //     throw new ApiError("Car not found", 404);
-  //   }
-  //   return deletedCount;
-  // }
+  public async delete(ID_slug: string): Promise<number> {
+    const deletedCount = await bikeRepository.delete(ID_slug);
+
+    if (!deletedCount) {
+      throw new ApiError("Bike not found", 404);
+    }
+    return deletedCount;
+  }
 
   private getSlug(name: string): string {
     return (

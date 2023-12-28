@@ -1,21 +1,23 @@
 import { NextFunction, Request, Response } from "express";
 
 import { bikeService } from "../services/bike.service";
+import { IBike } from "../types/bike.type";
+import { IQuery } from "../types/pagination.type";
 
 class BikeController {
-  // public async getAll(
-  //   req: Request,
-  //   res: Response,
-  //   next: NextFunction,
-  // ): Promise<Response<ICar[]>> {
-  //   try {
-  //     const cars = await carService.getAll(req.query as unknown as IQuery);
-  //
-  //     return res.json(cars);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
+  public async getAll(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response<IBike[]>> {
+    try {
+      const bikes = await bikeService.getAll(req.query as unknown as IQuery);
+
+      return res.json(bikes);
+    } catch (e) {
+      next(e);
+    }
+  }
 
   public async post(
     req: Request,
@@ -31,20 +33,20 @@ class BikeController {
     }
   }
 
-  // public async delete(
-  //   req: Request,
-  //   res: Response,
-  //   next: NextFunction,
-  // ): Promise<void> {
-  //   try {
-  //     const { id } = req.params;
-  //     await carService.delete(id);
-  //
-  //     res.sendStatus(204);
-  //   } catch (e) {
-  //     next(e);
-  //   }
-  // }
+  public async delete(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    try {
+      const { ID_slug } = req.params;
+      await bikeService.delete(ID_slug);
+
+      res.sendStatus(204);
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 export const bikeController = new BikeController();

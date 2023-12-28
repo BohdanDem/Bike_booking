@@ -6,7 +6,7 @@ import { BikeValidator } from "../validators/bike.validator";
 
 const router = Router();
 
-//router.get("/", carController.getAll);
+router.get("/", bikeController.getAll);
 
 router.post(
   "/",
@@ -14,6 +14,6 @@ router.post(
   bikeController.post,
 );
 
-//router.delete("/:id", carController.delete);
+router.delete("/:ID_slug", bikeController.delete);
 
 export const bikeRouter = router;
