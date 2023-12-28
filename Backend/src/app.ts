@@ -1,11 +1,23 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
 
 import { configs } from "./configs/config";
+import { ApiError } from "./errors/api.error";
+import { bikeRouter } from "./routers/bike.router";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/bikes", bikeRouter);
+
+app.use((error: ApiError, req: Request, res: Response, next: NextFunction) => {
+  const status = error.status || 500;
+  res.status(status).json({
+    message: error.message,
+    status: error.status,
+  });
+});
 
 const PORT = 5000;
 
