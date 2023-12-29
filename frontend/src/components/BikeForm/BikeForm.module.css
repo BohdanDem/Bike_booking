@@ -1,0 +1,4 @@
+#form_left {
+    display: flex;
+    flex-direction: column;
+}

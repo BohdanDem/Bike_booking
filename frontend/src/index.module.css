@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+}
+
+#main{
+    height: 86vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+}
