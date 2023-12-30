@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 
+import { EStatus } from "../enums/bike.status.enum";
 import { IBike } from "../types/bike.type";
 
 const bikeSchema = new Schema(
@@ -30,6 +31,11 @@ const bikeSchema = new Schema(
     },
     description: {
       type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: EStatus,
       required: true,
     },
   },

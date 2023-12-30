@@ -1,5 +1,6 @@
 import slugify from "slugify";
 
+import { EStatus } from "../enums/bike.status.enum";
 import { ApiError } from "../errors/api.error";
 import { Bike } from "../models/Bike.model";
 import { bikeRepository } from "../repositories/bike.repositiry";
@@ -28,7 +29,8 @@ class BikeService {
       const bike = new Bike();
       Object.assign(bike, dto);
 
-      bike.ID_slug = this.getSlug(dto.name);
+      bike.ID_slug = this.getSlug(dto.ID_slug);
+      bike.status = EStatus.Available;
 
       return await bikeRepository.post(bike);
     } catch (e) {
@@ -45,9 +47,9 @@ class BikeService {
     return deletedCount;
   }
 
-  private getSlug(name: string): string {
+  private getSlug(ID_slug: string): string {
     return (
-      slugify(name, { lower: true }) +
+      slugify(ID_slug, { lower: true }) +
       "-" +
       ((Math.random() * Math.pow(36, 6)) | 0).toString(36)
     );

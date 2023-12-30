@@ -6,6 +6,7 @@ export interface IBike{
     wheel_size: number;
     price: number;
     description: string;
+    status: string;
 }
 
 export interface IPaginationBikes<T> {

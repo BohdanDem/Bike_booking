@@ -1,4 +1,5 @@
-const baseURL = process.env.REACT_APP_API
+const baseURL = 'http://localhost:5000'
+
 
 const bikes = '/bikes'
 

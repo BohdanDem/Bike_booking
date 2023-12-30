@@ -1,0 +1,41 @@
+.main {
+    box-sizing: border-box;
+    width: 100%;
+    border: #69d269 2px solid;
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+    margin-top: 12px;
+}
+
+.slug {
+    font-size: 14px;
+}
+
+.info {
+    font-size: 16px;
+    text-align: start;
+}
+.info_price {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.price {
+    font-size: 22px;
+}
+
+.cross {
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
+}
+
+.cross:hover {
+    background-color: #9f9f9f;
+}
