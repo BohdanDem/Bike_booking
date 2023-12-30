@@ -12,7 +12,7 @@ const Bikes = () => {
 
     useEffect(() => {
         dispatch(bikesActions.getAllBikes({page: +query}))
-    }, [dispatch, query])
+    }, [data, dispatch, query])
 
     return (
         <div className={css.bikes}>
