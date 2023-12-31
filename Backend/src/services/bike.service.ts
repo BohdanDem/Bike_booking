@@ -38,6 +38,14 @@ class BikeService {
     }
   }
 
+  public async put(ID_slug: string, dto: IBike): Promise<IBike> {
+    try {
+      return await bikeRepository.put(ID_slug, dto);
+    } catch (e) {
+      throw new ApiError(e.message, e.status);
+    }
+  }
+
   public async delete(ID_slug: string): Promise<number> {
     const deletedCount = await bikeRepository.delete(ID_slug);
 

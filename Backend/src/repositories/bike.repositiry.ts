@@ -24,6 +24,17 @@ class BikeRepository {
     return bike;
   }
 
+  public async put(id: string, dto: IBike): Promise<IBike> {
+    const bike = await Bike.findOne({ ID_slug: id });
+    return await Bike.findByIdAndUpdate(
+      bike.id,
+      { status: dto.status },
+      {
+        returnDocument: "after",
+      },
+    );
+  }
+
   public async delete(ID_slug: string): Promise<number> {
     const { deletedCount } = await Bike.deleteOne({ ID_slug });
     return deletedCount;

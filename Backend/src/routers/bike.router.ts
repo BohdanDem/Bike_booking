@@ -19,6 +19,8 @@ router.post(
   bikeController.post,
 );
 
+router.put("/:ID_slug", bikeController.put);
+
 router.delete("/:ID_slug", bikeController.delete);
 
 export const bikeRouter = router;

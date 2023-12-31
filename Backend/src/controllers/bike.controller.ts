@@ -33,6 +33,17 @@ class BikeController {
     }
   }
 
+  public async put(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { ID_slug } = req.params;
+      const bike = await bikeService.put(ID_slug, req.body);
+
+      res.status(201).json(bike);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   public async delete(
     req: Request,
     res: Response,
