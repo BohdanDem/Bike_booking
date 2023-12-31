@@ -30,23 +30,30 @@ const Bike: FC<IProps> = ({bike}) => {
         update().then()
     }, [bikeStatus]);
 
-
     return (
-        <div className={css.main}>
+        <div className={status === "Available" ?
+            css.main : status === "Busy" ?
+                `${css.main} ${css.main_busy}`
+                : `${css.main} ${css.main_unavailable}`}>
             <div className={css.info}>
-                <div><b>{name.toUpperCase()}</b> - {type.toUpperCase()} ({color.toUpperCase()})</div>
-                <div className={css.slug}>{ID_slug}</div>
+                <div className={status === "Unavailable" ? css.opacity : null}>
+                    <b>{name.toUpperCase()}</b> - {type.toUpperCase()} ({color.toUpperCase()})
+                </div>
+                <div className={status === "Unavailable" ? `${css.slug} ${css.opacity}` : css.slug}>{ID_slug}</div>
                 <div className={css.dropdown}>
-                   <div>STATUS:</div>
-                    <select value={status} onChange={updateBikeStatus}>
+                    <div>STATUS:</div>
+                    <select className={status === "Unavailable" ? css.select_opacity : css.select}
+                            value={status} onChange={updateBikeStatus}>
                         <option value="Available">Available</option>
                         <option value="Busy">Busy</option>
                         <option value="Unavailable">Unavailable</option>
                     </select>
                 </div>
             </div>
-            <div className={css.info_price}>
-                <img onClick={()=>dispatch(bikeForClearActions.setBikeForClear({bike}))} className={css.cross} src={image} alt={"cross"}/>
+            <div className={status === "Unavailable" ? `${css.info_price} ${css.opacity}` : css.info_price}>
+                <img className={css.cross}
+                     onClick={()=>dispatch(bikeForClearActions.setBikeForClear({bike}))}
+                     src={image} alt={"cross"}/>
                 <div className={css.price}>{price.toFixed(2)} UAH/hr</div>
             </div>
         </div>
