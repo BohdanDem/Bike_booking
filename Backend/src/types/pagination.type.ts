@@ -11,5 +11,8 @@ export interface IPaginationResponse<T> {
   limit: number;
   itemsCount: number;
   itemsFound: number;
+  availableBikes: number;
+  bookedBikes: number;
+  averageBikeCost: number;
   data: T[];
 }

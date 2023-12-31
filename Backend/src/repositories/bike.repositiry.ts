@@ -3,7 +3,9 @@ import { IBike } from "../types/bike.type";
 import { IQuery } from "../types/pagination.type";
 
 class BikeRepository {
-  public async getAll(query: IQuery): Promise<[IBike[], number]> {
+  public async getAll(
+    query: IQuery,
+  ): Promise<[IBike[], number, number, number, number]> {
     const queryStr = JSON.stringify(query);
     const queryObj = JSON.parse(
       queryStr.replace(/\b(gte|lte|gt|lt)\b/, (match) => `$${match}`),
@@ -13,10 +15,33 @@ class BikeRepository {
 
     const skip = +limit * (+page - 1);
 
-    return await Promise.all([
-      Bike.find(searchObject).limit(+limit).skip(skip).sort(sortedBy),
-      Bike.find().count(searchObject),
-    ]);
+    const bikes = await Bike.find(searchObject)
+      .limit(+limit)
+      .skip(skip)
+      .sort(sortedBy);
+
+    const itemsCount = await Bike.find().count(searchObject);
+
+    const allBikes = await Bike.find();
+    const allBikesSum = allBikes.reduce(
+      (accumulator, currentValue) => accumulator + currentValue.price,
+      0,
+    );
+    const averageBikeCost = allBikesSum / itemsCount;
+
+    const availableBikes = allBikes.filter(
+      (bike) => bike.status === "Available",
+    );
+
+    const bookedBikes = allBikes.filter((bike) => bike.status === "Busy");
+
+    return [
+      bikes,
+      itemsCount,
+      averageBikeCost,
+      availableBikes.length,
+      bookedBikes.length,
+    ];
   }
 
   public async post(dto: IBike): Promise<IBike> {

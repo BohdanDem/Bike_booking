@@ -10,13 +10,17 @@ import { IPaginationResponse, IQuery } from "../types/pagination.type";
 class BikeService {
   public async getAll(query: IQuery): Promise<IPaginationResponse<IBike>> {
     try {
-      const [bikes, itemsCount] = await bikeRepository.getAll(query);
+      const [bikes, itemsCount, averageBikeCost, availableBikes, bookedBikes] =
+        await bikeRepository.getAll(query);
 
       return {
         page: +query.page,
         limit: +query.limit,
         itemsCount,
         itemsFound: bikes.length,
+        availableBikes: availableBikes,
+        bookedBikes: bookedBikes,
+        averageBikeCost: averageBikeCost,
         data: bikes,
       };
     } catch (e) {

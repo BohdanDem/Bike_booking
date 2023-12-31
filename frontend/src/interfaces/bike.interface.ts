@@ -14,5 +14,8 @@ export interface IPaginationBikes<T> {
     limit: number;
     itemsCount: number;
     itemsFound: number;
+    availableBikes: null,
+    bookedBikes: null,
+    averageBikeCost: null,
     data: T[];
 }

@@ -9,6 +9,9 @@ const initialState: IPaginationBikes<IBike> = {
     limit: null,
     itemsCount: null,
     itemsFound: null,
+    availableBikes: null,
+    bookedBikes: null,
+    averageBikeCost: null,
     data: [],
 }
 
@@ -63,6 +66,9 @@ const bikesSlice = createSlice({
             state.limit = action.payload.limit
             state.itemsCount = action.payload.itemsCount
             state.itemsFound = action.payload.itemsFound
+            state.availableBikes = action.payload.availableBikes
+            state.bookedBikes = action.payload.bookedBikes
+            state.averageBikeCost = action.payload.averageBikeCost
             state.data = action.payload.data
         })
 })
