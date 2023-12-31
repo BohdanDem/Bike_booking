@@ -1,7 +1,7 @@
 .main {
     box-sizing: border-box;
     width: 100%;
-    border: #69d269 2px solid;
+    border: #69d269 3px solid;
     border-radius: 8px;
 
     display: flex;

@@ -1,8 +1,8 @@
-import {FC, PropsWithChildren} from "react";
+import {FC, PropsWithChildren, useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IBike} from "../../interfaces/bike.interface";
 import css from './BikeForm.module.css'
-import {useAppDispatch} from "../../hooks/reduxHooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/reduxHooks";
 import {bikesActions} from "../../redux/slices/bikesSlice";
 
 interface IProps extends PropsWithChildren {
@@ -10,7 +10,20 @@ interface IProps extends PropsWithChildren {
 
 const BikeForm: FC<IProps> = () => {
     const {reset, register, handleSubmit, setValue} = useForm<IBike>();
+    const {bikeForClear} = useAppSelector(state => state.bikeForClear);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (bikeForClear) {
+            setValue('name', bikeForClear.name)
+            setValue('color', bikeForClear.color)
+            setValue('price', bikeForClear.price)
+            setValue('type', bikeForClear.type)
+            setValue('wheel_size', bikeForClear.wheel_size)
+            setValue('ID_slug', bikeForClear.ID_slug)
+            setValue('description', bikeForClear.description)
+        }
+    }, [bikeForClear, setValue])
 
     const save: SubmitHandler<IBike> = async (bike) => {
         await dispatch(bikesActions.createBike({bike}))
