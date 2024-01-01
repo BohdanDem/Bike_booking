@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "49d4953f-d90e-498c-ac86-9d02c82e465d",
+		"name": "Bike_booking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28792233"
+	},
+	"item": [
+		{
+			"name": "bike",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Specialized\", \r\n    \"type\": \"Cargo\",\r\n    \"color\": \"black\",\r\n    \"wheel_size\": 29,\r\n    \"price\": 18000,\r\n    \"description\": \"Very good bike the best!!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/bikes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"bikes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bike",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"Busy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/bikes/kelly-wtlh3f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"bikes",
+						"kelly-wtlh3f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bikes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/bikes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"bikes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bike",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/bikes/kellys-h5i3j2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"bikes",
+						"kellys-h5i3j2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
