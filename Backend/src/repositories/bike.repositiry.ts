@@ -1,5 +1,5 @@
 import { Bike } from "../models/Bike.model";
-import { IBike } from "../types/bike.type";
+import { IAvgBikePrice, IBike } from "../types/bike.type";
 import { IQuery } from "../types/pagination.type";
 
 class BikeRepository {
@@ -15,30 +15,30 @@ class BikeRepository {
 
     const skip = +limit * (+page - 1);
 
-    const bikes = await Bike.find(searchObject)
+    const bikes: IBike[] = await Bike.find(searchObject)
       .limit(+limit)
       .skip(skip)
       .sort(sortedBy);
 
-    const itemsCount = await Bike.find().count(searchObject);
+    const itemsCount: number = await Bike.find().count(searchObject);
 
-    const allBikes = await Bike.find();
-    const allBikesSum = allBikes.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.price,
-      0,
-    );
-    const averageBikeCost = allBikesSum / itemsCount;
+    const averageBikeCost: IAvgBikePrice[] = await Bike.aggregate([
+      {
+        $group: {
+          _id: "average bike cost",
+          avgPrice: { $avg: "$price" },
+        },
+      },
+    ]);
 
-    const availableBikes = allBikes.filter(
-      (bike) => bike.status === "Available",
-    );
+    const availableBikes: IBike[] = await Bike.find({ status: "Available" });
 
-    const bookedBikes = allBikes.filter((bike) => bike.status === "Busy");
+    const bookedBikes: IBike[] = await Bike.find({ status: "Busy" });
 
     return [
       bikes,
       itemsCount,
-      averageBikeCost,
+      averageBikeCost[0].avgPrice,
       availableBikes.length,
       bookedBikes.length,
     ];

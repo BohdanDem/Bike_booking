@@ -12,3 +12,8 @@ export interface IBike extends Document {
   description: string;
   status: EStatus;
 }
+
+export interface IAvgBikePrice {
+  _id: string;
+  avgPrice: number;
+}
