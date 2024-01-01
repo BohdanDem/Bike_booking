@@ -1,4 +1,4 @@
-Summary
+Summary:
 The following project provides admin panel that provides bicycle booking services.
 
 Before starting application you need to:
