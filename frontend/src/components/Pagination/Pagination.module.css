@@ -2,4 +2,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 25px;
+}
+
+.button {
+    font-family: 'Saira', sans-serif;
+    font-size: 16px;
+    color: white;
+    background-color: rgb(84, 84, 84);
+    margin-right: 30px;
+    padding: 5px 25px;
+    border: none;
+    border-radius: 8px;
+}
+
+.button_dis {
+    background-color: rgb(201, 201, 201);
+}
+
+.button:hover {
+    color: black;
+    background-color: #9a9a9a;
+}
+
+.button_dis:hover {
+    background-color: rgb(201, 201, 201);
+    color: white;
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/reduxHooks";
 import Bike from "./Bike/Bike";
 import {bikesActions} from "../../redux/slices/bikesSlice";

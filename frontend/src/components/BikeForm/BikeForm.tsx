@@ -68,8 +68,8 @@ const BikeForm: FC<IProps> = () => {
             <input id={css.desc} type="text" placeholder={'Description'} {...register('description')}/>
             {errors.description && <span>{errors.description.message}</span>}
             <div id={css.main}>
-                <button onClick={handleSubmit(save)}>SAVE</button>
-                <button onClick={handleSubmit(clear)}>CLEAR</button>
+                <button id={css.button} onClick={handleSubmit(save)}>SAVE</button>
+                <button id={css.button} onClick={handleSubmit(clear)}>CLEAR</button>
             </div>
         </form>
     );
