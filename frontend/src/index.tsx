@@ -8,6 +8,7 @@ import {BikeForm} from "./components/BikeForm/BikeForm";
 import Bikes from "./components/Bikes/Bikes";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
+import Pagination from "./components/Pagination/Pagination";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,6 +20,7 @@ root.render(
             <div id={css.main}>
                 <div id={css.bikes}>
                     <Bikes/>
+                    <Pagination/>
                 </div>
                 <div id={css.form_stat}>
                     <BikeForm/>

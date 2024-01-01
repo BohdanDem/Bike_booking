@@ -7,12 +7,11 @@ import css from './Bikes.module.css'
 const Bikes = () => {
 
     const dispatch = useAppDispatch();
-    const {data} = useAppSelector(state => state.bikes);
-    const [query, setQuery] = useState(1);
+    const {data, page} = useAppSelector(state => state.bikes);
 
     useEffect(() => {
-        dispatch(bikesActions.getAllBikes({page: +query}))
-    }, [data, dispatch, query])
+        dispatch(bikesActions.getAllBikes({page}))
+    }, [data, dispatch, page])
 
     return (
         <div className={css.bikes}>

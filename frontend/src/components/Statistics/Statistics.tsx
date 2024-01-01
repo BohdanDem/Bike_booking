@@ -13,7 +13,7 @@ const Statistics = () => {
                 <div>Total Bikes: <b>{itemsCount}</b></div>
                 <div>Available Bikes: <b>{availableBikes}</b></div>
                 <div>Booked Bikes: <b>{bookedBikes}</b></div>
-                <div>Average bike cost: <b>{averageBikeCost}</b> UAH/hr</div>
+                <div>Average bike cost: <b>{averageBikeCost.toFixed(2)}</b> UAH/hr</div>
             </main>
         </>
     );

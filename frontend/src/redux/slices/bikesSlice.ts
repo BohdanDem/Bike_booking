@@ -1,17 +1,17 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IBike, IPaginationBikes} from "../../interfaces/bike.interface";
 import {AxiosError} from "axios";
 import {bikeService} from "../../services/bike.service";
 import {useAppSelector} from "../../hooks/reduxHooks";
 
 const initialState: IPaginationBikes<IBike> = {
-    page: 1,
+    page: null,
     limit: null,
     itemsCount: null,
     itemsFound: null,
     availableBikes: null,
     bookedBikes: null,
-    averageBikeCost: null,
+    averageBikeCost: 0,
     data: [],
 }
 
@@ -59,7 +59,11 @@ const deleteBike = createAsyncThunk<void, {ID_slug: string}>(
 const bikesSlice = createSlice({
     name: 'bikesSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setPage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload
+        }
+    },
     extraReducers: builder => builder
         .addCase(getAllBikes.fulfilled, (state, action) => {
             state.page = action.payload.page
