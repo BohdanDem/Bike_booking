@@ -11,11 +11,11 @@ const Bikes = () => {
 
     useEffect(() => {
         dispatch(bikesActions.getAllBikes({page}))
-    }, [data, dispatch, page])
+    }, [page])
 
     return (
         <div className={css.bikes}>
-            {data.map(bike => <Bike key={bike.ID_slug} bike={bike}/>)}
+            {data && data.map(bike => <Bike key={bike.ID_slug} bike={bike}/>)}
         </div>
     );
 };

@@ -6,14 +6,14 @@ import {bikesActions} from "../../redux/slices/bikesSlice";
 const Pagination = () => {
     const dispatch = useAppDispatch();
     const {page, limit, itemsCount} = useAppSelector(state => state.bikes);
+    const [totalPages, setTotalPages] = useState(Math.ceil(itemsCount/limit));
 
     const [isPreviousButtonDisabled, setIsPreviousButtonDisabled] = useState(true);
     const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(false);
-    const [totalPages, setTotalPages] = useState(Math.ceil(itemsCount/limit));
 
     useEffect(() => {
-        setTotalPages(Math.ceil(itemsCount/limit))
-    }, [limit, itemsCount, page])
+        setTotalPages(Math.ceil(itemsCount / limit));
+    }, [itemsCount, limit]);
 
     function valid(page: number, totalPages: number) {
 
@@ -29,21 +29,27 @@ const Pagination = () => {
         else setIsNextButtonDisabled(false)
     }
 
-    const next: React.MouseEventHandler<HTMLButtonElement> = async function (ev) {
+    const next: React.MouseEventHandler<HTMLButtonElement> = function (ev) {
         ev.preventDefault();
-        const newPage = page + 1;
-        await dispatch(bikesActions.setPage(newPage))
-        valid(newPage, totalPages)
+        const newPage: number = page + 1;
+        dispatch(bikesActions.setPage(newPage))
+        const updatedTotalPages = Math.ceil(itemsCount / limit);
+        valid(newPage, updatedTotalPages)
         console.log(newPage);
     };
 
-    const previous: React.MouseEventHandler<HTMLButtonElement> = async function (ev) {
+    const previous: React.MouseEventHandler<HTMLButtonElement> = function (ev) {
         ev.preventDefault();
         const newPage = page - 1;
-        await dispatch(bikesActions.setPage(newPage))
-        valid(newPage, totalPages)
+        dispatch(bikesActions.setPage(newPage))
+        const updatedTotalPages = Math.ceil(itemsCount / limit);
+        valid(newPage, updatedTotalPages)
         console.log(newPage);
     };
+
+    useEffect(() => {
+        valid(page, totalPages);
+    }, [totalPages]);
 
     return (
         <div className={css.pagination}>

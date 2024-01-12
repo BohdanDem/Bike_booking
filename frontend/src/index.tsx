@@ -20,7 +20,7 @@ root.render(
             <div id={css.main}>
                 <div id={css.bikes}>
                     <Bikes/>
-                    {/*<Pagination/>*/}
+                    <Pagination/>
                 </div>
                 <div id={css.form_stat}>
                     <BikeForm/>
