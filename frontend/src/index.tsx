@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import css from './index.module.css'
-import Statistics from "./components/Statistics/Statistics";
-import {BikeForm} from "./components/BikeForm/BikeForm";
-import Bikes from "./components/Bikes/Bikes";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
+import css from "./index.module.css";
+import Bikes from "./components/Bikes/Bikes";
 import Pagination from "./components/Pagination/Pagination";
+import {BikeForm} from "./components/BikeForm/BikeForm";
+import Statistics from "./components/Statistics/Statistics";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

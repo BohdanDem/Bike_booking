@@ -20,6 +20,7 @@ const BikeForm: FC<IProps> = () => {
         resolver: joiResolver(bikeValidator)
         });
     const {bikeForClear} = useAppSelector(state => state.bikeForClear);
+    const {page} = useAppSelector(state => state.bikes);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -36,12 +37,14 @@ const BikeForm: FC<IProps> = () => {
 
     const save: SubmitHandler<IBike> = async (bike) => {
         await dispatch(bikesActions.createBike({bike}))
+        await dispatch(bikesActions.getAllBikes({page}))
         reset()
     };
 
     const clear: SubmitHandler<IBike> = async (bike) => {
         const ID_slug = bike.ID_slug
         await dispatch(bikesActions.deleteBike({ID_slug}))
+        await dispatch(bikesActions.getAllBikes({page}))
         reset()
     };
 

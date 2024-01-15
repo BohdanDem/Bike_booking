@@ -33,8 +33,6 @@ const createBike = createAsyncThunk<void, {bike: IBike}>(
     async ({bike}, {rejectWithValue, dispatch}) => {
         try {
             await bikeService.create(bike);
-            const {page} = useAppSelector(state => state.bikes);
-            dispatch(getAllBikes({page}))
         } catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response.data)
@@ -47,8 +45,6 @@ const deleteBike = createAsyncThunk<void, {ID_slug: string}>(
     async ({ID_slug}, {rejectWithValue, dispatch}) => {
         try {
             await bikeService.deleteById(ID_slug)
-            const {page} = useAppSelector(state => state.bikes);
-            dispatch(getAllBikes({page}))
         } catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response.data)
