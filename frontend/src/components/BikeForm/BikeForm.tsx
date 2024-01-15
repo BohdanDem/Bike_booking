@@ -1,4 +1,4 @@
-import {FC, PropsWithChildren, useEffect} from "react";
+import {FC, FormEvent, PropsWithChildren} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IBike} from "../../interfaces/bike.interface";
 import css from './BikeForm.module.css'
@@ -19,21 +19,8 @@ const BikeForm: FC<IProps> = () => {
         mode: "onSubmit",
         resolver: joiResolver(bikeValidator)
         });
-    const {bikeForClear} = useAppSelector(state => state.bikeForClear);
     const {page} = useAppSelector(state => state.bikes);
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (bikeForClear) {
-            setValue('name', bikeForClear.name)
-            setValue('color', bikeForClear.color)
-            setValue('price', bikeForClear.price)
-            setValue('type', bikeForClear.type)
-            setValue('wheel_size', bikeForClear.wheel_size)
-            setValue('ID_slug', bikeForClear.ID_slug)
-            setValue('description', bikeForClear.description)
-        }
-    }, [bikeForClear, setValue])
 
     const save: SubmitHandler<IBike> = async (bike) => {
         await dispatch(bikesActions.createBike({bike}))
@@ -41,18 +28,20 @@ const BikeForm: FC<IProps> = () => {
         reset()
     };
 
-    const clear: SubmitHandler<IBike> = async (bike) => {
-        const ID_slug = bike.ID_slug
-        await dispatch(bikesActions.deleteBike({ID_slug}))
-        await dispatch(bikesActions.getAllBikes({page}))
-        reset()
+    const formFields = ['name', 'color', 'price', 'type', 'wheel_size', 'ID_slug', 'description'] as const;
+
+    const clearForm = (e: FormEvent) => {
+        e.preventDefault()
+        formFields.forEach(field => {
+            setValue(field, '');
+        });
     };
 
     return (
         <form id={css.form}>
             <div id={css.main}>
                 <div id={css.form_left}>
-                    <input type="text" placeholder={'Name'} {...register('name')}/>
+                    <input className={`${css.input} ${css.formInput}`} type="text" placeholder={'Name'} {...register('name')}/>
                     {errors.name && <span>{errors.name.message}</span>}
                     <input type="text" placeholder={'Color'} {...register('color')}/>
                     {errors.color && <span>{errors.color.message}</span>}
@@ -72,7 +61,7 @@ const BikeForm: FC<IProps> = () => {
             {errors.description && <span>{errors.description.message}</span>}
             <div id={css.main}>
                 <button id={css.button} onClick={handleSubmit(save)}>SAVE</button>
-                <button id={css.button} onClick={handleSubmit(clear)}>CLEAR</button>
+                <button id={css.button} onClick={clearForm}>CLEAR</button>
             </div>
         </form>
     );

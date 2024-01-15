@@ -38,6 +38,10 @@ input {
     white-space: pre-wrap;
 }
 
+input:focus {
+    background-color: rgb(222, 222, 222);
+}
+
 input::placeholder {
     font-family: 'Saira', sans-serif;
     color:rgb(161, 161, 161);

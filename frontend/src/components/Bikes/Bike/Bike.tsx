@@ -3,7 +3,6 @@ import {IBike} from '../../../interfaces/bike.interface';
 import css from './Bike.module.css'
 import image from '../../../assets/image/cross.jpg'
 import {useAppDispatch, useAppSelector} from "../../../hooks/reduxHooks";
-import {bikeForClearActions} from "../../../redux/slices/bikeForClearSlice";
 import {bikeService} from "../../../services/bike.service";
 import {bikesActions} from "../../../redux/slices/bikesSlice";
 
@@ -30,6 +29,11 @@ const Bike: FC<IProps> = ({bike}) => {
         update().then()
     }, [bikeStatus]);
 
+    const deleteBike = async () => {
+        await dispatch(bikesActions.deleteBike({ID_slug}))
+        await dispatch(bikesActions.getAllBikes({page}))
+    };
+
     return (
         <div className={status === "Available" ?
             css.main : status === "Busy" ?
@@ -52,7 +56,7 @@ const Bike: FC<IProps> = ({bike}) => {
             </div>
             <div className={status === "Unavailable" ? `${css.info_price} ${css.opacity}` : css.info_price}>
                 <img className={css.cross}
-                     onClick={()=>dispatch(bikeForClearActions.setBikeForClear({bike}))}
+                     onClick={deleteBike}
                      src={image} alt={"cross"}/>
                 <div className={css.price}>{price.toFixed(2)} UAH/hr</div>
             </div>

@@ -11,7 +11,7 @@ const Bikes = () => {
 
     useEffect(() => {
         dispatch(bikesActions.getAllBikes({page}))
-    }, [page])
+    }, [dispatch, page])
 
     return (
         <div className={css.bikes}>
