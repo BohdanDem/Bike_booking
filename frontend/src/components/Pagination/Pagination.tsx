@@ -20,13 +20,12 @@ const Pagination = () => {
 
     useEffect(() => {
         valid(page, totalPages);
-    }, []);
+    }, [page, totalPages, valid]);
 
     const next: React.MouseEventHandler<HTMLButtonElement> = function (ev) {
         ev.preventDefault();
         const newPage: number = page + 1;
-        setPage(newPage)
-        console.log(newPage);
+        setPage(page + 1)
         dispatch(bikesActions.getAllBikes({page: newPage}))
         valid(newPage, totalPages)
     };
@@ -35,7 +34,6 @@ const Pagination = () => {
         ev.preventDefault();
         const newPage = page - 1;
         setPage(newPage)
-        console.log(newPage);
         dispatch(bikesActions.getAllBikes({page: newPage}))
         valid(newPage, totalPages)
     };

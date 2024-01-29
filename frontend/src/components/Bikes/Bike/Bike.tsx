@@ -1,4 +1,4 @@
-import React, {FC, PropsWithChildren, useEffect, useState} from 'react';
+import React, {FC, PropsWithChildren} from 'react';
 import {IBike} from '../../../interfaces/bike.interface';
 import css from './Bike.module.css'
 import image from '../../../assets/image/cross.jpg'
@@ -14,20 +14,15 @@ const Bike: FC<IProps> = ({bike}) => {
     const {name, type, color, ID_slug, price, status} = bike
     const dispatch = useAppDispatch();
     const {page} = useAppSelector(state => state.bikes);
-    const [bikeStatus, setBikeStatus] = useState(status);
 
     const updateBikeStatus = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOption = event.target.value;
-        setBikeStatus(selectedOption);
-    };
-
-    useEffect( () => {
         const update = async () => {
-            await bikeService.updateById(bike.ID_slug, {status: bikeStatus})
+            await bikeService.updateById(bike.ID_slug, {status: selectedOption})
             await dispatch(bikesActions.getAllBikes({page}))
         }
         update().then()
-    }, [bikeStatus]);
+    };
 
     const deleteBike = async () => {
         await dispatch(bikesActions.deleteBike({ID_slug}))
