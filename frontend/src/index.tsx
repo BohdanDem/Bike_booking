@@ -6,9 +6,9 @@ import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import css from "./index.module.css";
 import Bikes from "./components/Bikes/Bikes";
-import Pagination from "./components/Pagination/Pagination";
 import {BikeForm} from "./components/BikeForm/BikeForm";
 import Statistics from "./components/Statistics/Statistics";
+import Pagination from "./components/Pagination/Pagination";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

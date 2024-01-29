@@ -5,51 +5,40 @@ import {bikesActions} from "../../redux/slices/bikesSlice";
 
 const Pagination = () => {
     const dispatch = useAppDispatch();
-    const {page, limit, itemsCount} = useAppSelector(state => state.bikes);
+    const {limit, itemsCount} = useAppSelector(state => state.bikes);
     const [totalPages, setTotalPages] = useState(Math.ceil(itemsCount/limit));
 
     const [isPreviousButtonDisabled, setIsPreviousButtonDisabled] = useState(true);
     const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(false);
-
-    useEffect(() => {
-        setTotalPages(Math.ceil(itemsCount / limit));
-    }, [itemsCount, limit]);
+    const [page, setPage] = useState(1);
 
     function valid(page: number, totalPages: number) {
-
-        if (page <= 1) {
-            setIsPreviousButtonDisabled(true)
-        }
-        else if (page > 1) {
-            setIsPreviousButtonDisabled(false)
-        }
-        if (page === totalPages){
-            setIsNextButtonDisabled(true)
-        }
-        else setIsNextButtonDisabled(false)
+        setTotalPages(Math.ceil(itemsCount / limit));
+        page <= 1 ? setIsPreviousButtonDisabled(true) : setIsPreviousButtonDisabled(false)
+        page === totalPages ? setIsNextButtonDisabled(true) : setIsNextButtonDisabled(false)
     }
+
+    useEffect(() => {
+        valid(page, totalPages);
+    }, []);
 
     const next: React.MouseEventHandler<HTMLButtonElement> = function (ev) {
         ev.preventDefault();
         const newPage: number = page + 1;
-        dispatch(bikesActions.setPage(newPage))
-        const updatedTotalPages = Math.ceil(itemsCount / limit);
-        valid(newPage, updatedTotalPages)
+        setPage(newPage)
         console.log(newPage);
+        dispatch(bikesActions.getAllBikes({page: newPage}))
+        valid(newPage, totalPages)
     };
 
     const previous: React.MouseEventHandler<HTMLButtonElement> = function (ev) {
         ev.preventDefault();
         const newPage = page - 1;
-        dispatch(bikesActions.setPage(newPage))
-        const updatedTotalPages = Math.ceil(itemsCount / limit);
-        valid(newPage, updatedTotalPages)
+        setPage(newPage)
         console.log(newPage);
+        dispatch(bikesActions.getAllBikes({page: newPage}))
+        valid(newPage, totalPages)
     };
-
-    useEffect(() => {
-        valid(page, totalPages);
-    }, [totalPages]);
 
     return (
         <div className={css.pagination}>

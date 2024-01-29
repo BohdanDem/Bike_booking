@@ -2,7 +2,6 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IBike, IPaginationBikes} from "../../interfaces/bike.interface";
 import {AxiosError} from "axios";
 import {bikeService} from "../../services/bike.service";
-import {useAppSelector} from "../../hooks/reduxHooks";
 
 const initialState: IPaginationBikes<IBike> = {
     page: null,
